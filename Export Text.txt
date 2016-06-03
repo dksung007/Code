@@ -1,0 +1,30 @@
+ Dim Path As String = INI_File.GetString("Setting", "Path", "")
+
+
+        'i am trying to export data from datagridview to the text file, for that my code is
+
+        Dim numCols As Integer = dgv_Data.ColumnCount
+        Dim numRows As Integer = dgv_Data.RowCount - 1
+        Dim strDestinationFile As String = "" & Path & "\" & "FordExport.txt"
+        Dim tw As TextWriter = New StreamWriter(strDestinationFile)
+        'writing the header
+        For count As Integer = 0 To numCols - 1
+            tw.Write(dgv_Data.Columns(count).HeaderText)
+            If (count <> numCols - 1) Then
+                tw.Write(",")
+            End If
+        Next
+        tw.WriteLine()
+        For count As Integer = 0 To numRows - 1
+            For count2 As Integer = 0 To numCols - 1
+                tw.Write(dgv_Data.Rows(count).Cells(count2).Value)
+                If (count2 <> numCols) Then
+                    tw.Write(
+                    """,""")
+                End If
+            Next
+            tw.WriteLine()
+        Next
+        tw.Close()
+        MsgBox(
+        "data exported to the textfile succsessfully")

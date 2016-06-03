@@ -1,0 +1,19 @@
+Private Sub Auto_Txt()
+        connection()
+       
+        Dim cmd As New SqlCommand("SELECT  name FROM DB_Detail_User", Conn)
+        Dim ds As New DataSet
+        Dim da As New SqlDataAdapter(cmd)
+        da.Fill(ds, "list")
+        Dim col As New AutoCompleteStringCollection
+        Dim i As Integer
+
+        For i = 0 To ds.Tables(0).Rows.Count - 1
+
+            col.Add(ds.Tables(0).Rows(i)("name").ToString())
+           
+        Next
+        txt_Search.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txt_Search.AutoCompleteCustomSource = col
+        txt_Search.AutoCompleteMode = AutoCompleteMode.Suggest
+    End Sub

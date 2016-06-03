@@ -1,0 +1,34 @@
+ Private Sub FormatDgvList()
+        Dim cs As New DataGridViewCellStyle
+        cs.Font = New Font("Ms Sans Serif", 10, FontStyle.Bold)
+        With DataGridView1
+            If .RowCount > 0 Then
+                .ColumnHeadersDefaultCellStyle = cs
+                '.AllowUserToAddRows = False
+                .ReadOnly = True
+                .Columns(0).HeaderText = "  "
+                .Columns(1).HeaderText = "  "
+                .Columns(2).HeaderText = "  "
+                .Columns(3).HeaderText = "  "
+                .Columns(4).HeaderText = "  "
+                '.Columns(5).HeaderText = "  "
+
+                .Columns(0).Width = 50
+                .Columns(1).Width = 200
+                .Columns(2).Width = 80
+                .Columns(3).Width = 80
+                .Columns(4).Width = 90
+                '.Columns(5).Width = 100
+
+                .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                .BackgroundColor = Color.White
+
+ 		.Columns(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(6).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            End If
+        End With
+    End Sub

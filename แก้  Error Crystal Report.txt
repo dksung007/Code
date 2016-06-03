@@ -1,0 +1,13 @@
+
+How to fix error Could not load file or assembly 
+'file:///C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win64_x64\dotnet1\crdb_adoplus.dll'
+ or one of its dependencies. The system cannot find the file specified.
+
+
+
+In app.config file
+    <startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
+
+Replace with
+
+    <startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>

@@ -1,0 +1,10 @@
+ connection()
+        sqltext = " SELECT *"
+        sqltext &= " FROM ProductP"
+        Dim da As SqlDataAdapter
+        Dim ds As New DataSet
+        da = New SqlDataAdapter(sqltext, Conn)
+        da.Fill(ds, "ProductP")
+        'เก็บข้อูลใน DataTable
+        DATA = ds.Tables("ProductP")
+        DataGridView1.DataSource = ds.Tables("ProductP")

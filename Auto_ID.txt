@@ -1,0 +1,17 @@
+  Private Function Auto_ID() As String
+        Dim AutoID As String
+        Dim i As Integer
+        sqltext = " select max(right(id,4)) from Issue"
+        Dim da2 As SqlDataAdapter
+        Dim ds2 As New DataSet
+        Connection()
+        da2 = New SqlDataAdapter(sqltext, Conn)
+        da2.Fill(ds2, "Issue")
+        If ds2.Tables("Issue").Rows(0).Item(0) Is DBNull.Value Then
+            i = 1
+        Else
+            i = CInt(ds2.Tables("Issue").Rows(0).Item(0)) + 1
+        End If
+        AutoID = i.ToString("0000")
+        Return ("I" & AutoID)
+    End Function

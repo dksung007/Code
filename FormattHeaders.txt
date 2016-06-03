@@ -1,0 +1,37 @@
+Private Sub FormattHeaders()
+        Me.DataGridView1.EnableHeadersVisualStyles = False
+
+        With DataGridView1.ColumnHeadersDefaultCellStyle
+            .Alignment = DataGridViewContentAlignment.MiddleCenter
+            .BackColor = Color.DarkRed
+            .ForeColor = Color.Gold
+            .Font = New Font(.Font.FontFamily, .Font.Size, _
+             .Font.Style Or FontStyle.Bold, GraphicsUnit.Point)
+        End With
+End Sub
+
+ Private Sub FormatDgvSum()
+        With DataGridView1
+            If .RowCount > 0 Then
+                .ReadOnly = True
+                .Columns(0).HeaderText = "Model"
+                .Columns(1).HeaderText = "Date"
+                .Columns(2).HeaderText = "FMA"
+                .Columns(3).HeaderText = "Part Code"
+                .Columns(4).HeaderText = "Total"
+                .Columns(0).Width = 100
+                .Columns(1).Width = 100
+                .Columns(2).Width = 100
+                .Columns(3).Width = 120
+                .Columns(4).Width = 100
+                .Columns(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .BackgroundColor = Color.White
+
+            End If
+        End With
+        'Me.DataGridView1.FirstDisplayedScrollingRowIndex = Me.DataGridView1.RowCount - 1
+    End Sub
