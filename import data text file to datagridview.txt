@@ -1,0 +1,11 @@
+  Private Sub ChkFiletxt()
+        Dim fileEntries As String() = Directory.GetFiles("D:\GM_DATA\", "*.txt")
+        ' Process the list of .txt files found in the directory. '
+        Dim fileName As String
+        For Each fileName In fileEntries
+            For Each line As String In System.IO.File.ReadAllLines(fileName)
+                dgvList.Rows.Add(line.Split(" "))
+            Next
+        Next
+
+    End Sub

@@ -1,0 +1,97 @@
+lsvProductList.Columns.Add("รหัสสินค้า", 100, HorizontalAlignment.Left)
+        lsvProductList.Columns.Add("ชื่อสินค้า", 220, HorizontalAlignment.Left)
+        lsvProductList.Columns.Add("ราคาขาย", 75, HorizontalAlignment.Right)
+        lsvProductList.Columns.Add("จำนวน", 90, HorizontalAlignment.Center)
+        lsvProductList.Columns.Add("หน่วย", 60, HorizontalAlignment.Right)
+        lsvProductList.Columns.Add("รวมเป็นเงิน", 70, HorizontalAlignment.Right)
+        lsvProductList.View = View.Details
+        lsvProductList.GridLines = True
+        lsvProductList.FullRowSelect = True
+        txt_Amount.ContextMenu = New ContextMenu()
+        txtProductID.ContextMenu = New ContextMenu()
+
+Private Sub txtProductID_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtProductID.KeyDown
+
+        If txtProductID.Text.Trim() = "" Then Exit Sub
+        If e.KeyCode = Keys.Enter Then
+
+            sb.Remove(0, sb.Length)
+            sb.Append("SELECT ProductID,namePro,price,unit,amount")
+            sb.Append(" FROM ProductP")
+            sb.Append(" WHERE (ProductID=@ProductID)")
+            Dim sqlProduct As String = sb.ToString()
+
+            Dim dtProduct As DataTable
+            With com
+                .CommandType = CommandType.Text
+                .CommandText = sqlProduct
+                .Parameters.Clear()
+                .Parameters.Add("@ProductID", SqlDbType.NVarChar).Value = (txtProductID.Text)
+                .Connection = Conn
+                dr = .ExecuteReader()
+                If dr.HasRows Then
+                    dtProduct = New DataTable()
+                    dtProduct.Load(dr)
+                    txtProductID.Text = dtProduct.Rows(0).Item("ProductID").ToString()
+                    lblProductName.Text = dtProduct.Rows(0).Item("namePro").ToString()
+                    lblSalePrice.Text = dtProduct.Rows(0).Item("price").ToString()
+                    lblUnit.Text = dtProduct.Rows(0).Item("unit").ToString()
+                    txt_AmontPro.Text = dtProduct.Rows(0).Item("amount").ToString()
+                    CalculateTotal()
+                    txt_Amount.Focus()
+                Else
+                    MessageBox.Show("รหัสสินค้าที่คุณป้อน ไม่ถูกต้อง !!!", "ผลการตรวจสอบ", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    ClearProductData()
+                    txtProductID.Focus()
+                End If
+            End With
+            dr.Close()
+        End If
+        Unlockcontrol()
+    End Sub
+
+
+Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click
+
+        If (txtProductID.Text.Trim() = "") Or (lblProductName.Text.Trim() = "") Then
+            txtProductID.Focus()
+            Exit Sub
+        End If
+        If CInt(txt_Amount.Text) = 0 Then
+            txt_Amount.Focus()
+            Exit Sub
+        End If
+
+        Dim i As Integer = 0
+        Dim lvi As ListViewItem
+        Dim tmpProductID As String = ""
+        For i = 0 To lsvProductList.Items.Count - 1
+            tmpProductID = CStr(lsvProductList.Items(i).SubItems(0).Text)
+            If CStr(txtProductID.Text.Trim()) = tmpProductID Then
+                MessageBox.Show("คุณเลือกสินค้าซ้ำกัน กรุณาเลือกใหม่ !!!", "ผลการตรวจสอบ", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ClearProductData()
+                txtProductID.Focus()
+                txtProductID.SelectAll()
+                Exit Sub
+            End If
+        Next
+
+        Dim anyData() As String
+        anyData = New String() { _
+            txtProductID.Text, _
+            lblProductName.Text, _
+            lblSalePrice.Text, _
+            txt_Amount.Text, _
+            lblUnit.Text, _
+            lblTotal.Text _
+        }
+        lvi = New ListViewItem(anyData)
+        lsvProductList.Items.Add(lvi)
+        CalculateNet()
+        ClearProductData()
+        cmdSave.Enabled = True
+        txtProductID.Focus()
+        txtRecive.Enabled = True
+        txtCommute.Enabled = True
+
+    End Sub

@@ -1,0 +1,14 @@
+ Private Sub PopulateInstalledPrintersCombo()
+        Me.M_cmb_print_label.Items.Clear()
+        Me.M_cmb_print_report.Items.Clear()
+        Me.m_cmb_print_rack_label.Items.Clear()
+        '// Add list of installed printers found to the combo box. The pkInstalledPrinters string will be used to provide the display string.
+        Dim i As Integer
+        Dim strpkInstalledPrinters As String
+        For i = 0 To PrinterSettings.InstalledPrinters.Count - 1
+            strpkInstalledPrinters = PrinterSettings.InstalledPrinters.Item(i)
+            Me.M_cmb_print_label.Items.Add(strpkInstalledPrinters)
+            Me.M_cmb_print_report.Items.Add(strpkInstalledPrinters)
+            Me.m_cmb_print_rack_label.Items.Add(strpkInstalledPrinters)
+        Next
+    End Sub

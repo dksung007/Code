@@ -1,0 +1,23 @@
+ Public Sub GetFileNamesInaDirectory()
+        ' clear text file
+        'Dim stream As New IO.StreamWriter("D:\Extract\Output.txt", False)
+        'stream.WriteLine("")
+        ''stream.Close()
+        '''''''''''''''''''''''''''''
+        Dim ff As New DataTable
+        Dim Filenames() As String = IO.Directory.GetFiles("D:\GM_DATA", "*.*") 'D:\testfolder->input path of the folder
+        Dim Filereader As StreamWriter = New StreamWriter("D:\Extract\Output.txt", True, System.Text.Encoding.Unicode) 'C:\Extract\Output.txt->output path of the file where to write the contents
+        'Dim Filereader As StreamWriter = New StreamWriter("" & ff & "", True, System.Text.Encoding.Unicode)
+        For Each strFiles As String In Filenames
+            'MessageBox.Show(IO.Path.GetFileName(strFiles))
+
+            Filereader.WriteLine(IO.Path.GetFileName(strFiles))
+            'ListBox1.Text = IO.Path.GetFileName(strFiles)
+        Next
+        Filereader.Close()
+        Filereader.Dispose()
+
+        For Each line As String In System.IO.File.ReadAllLines("D:\Extract\Output.txt")
+            dgvList.Rows.Add(line.Split(" "))
+        Next
+    End Sub

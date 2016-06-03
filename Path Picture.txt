@@ -1,0 +1,2 @@
+ PictureBox1.Image = Image.FromFile(My.Application.Info.DirectoryPath + "\LOGO\" + LogoCompany)
+        PictureBox2.Image = Image.FromFile(My.Application.Info.DirectoryPath + "\LOGO\" + LogoCustomer)

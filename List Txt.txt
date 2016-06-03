@@ -1,0 +1,14 @@
+ Private Sub Show_ListBrand()
+        Dim cmd As New SqlCommand("Select DISTINCT Brand From DB_Device", Conn)
+        Dim ds As New DataSet
+        Dim da As New SqlDataAdapter(cmd)
+        da.Fill(ds, "DB_Device") ' list can be any name u want
+        Dim col As New AutoCompleteStringCollection
+        Dim i As Integer
+        For i = 0 To ds.Tables(0).Rows.Count - 1
+            col.Add(ds.Tables(0).Rows(i)("Brand").ToString()) 'columnname same as in query
+        Next
+        txt_NameDevice.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txt_NameDevice.AutoCompleteCustomSource = col
+        txt_NameDevice.AutoCompleteMode = AutoCompleteMode.Suggest
+    End Sub

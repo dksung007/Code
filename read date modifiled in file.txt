@@ -1,0 +1,6 @@
+  Dim infoReader As System.IO.DirectoryInfo
+        infoReader = My.Computer.FileSystem.GetDirectoryInfo("D:\GM_DATA")
+
+        'infoReader = My.Computer.FileSystem.GetFileInfo("D:\GM_DATA\NHK_ANTOLIN_707310_2013-11-18_14-07-46.txt")
+
+        MsgBox("File was last modified on " & infoReader.LastWriteTime)
